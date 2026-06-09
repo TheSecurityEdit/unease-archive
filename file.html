@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Unease Archive — The Security Edit</title>
+  <link href="[fonts.googleapis.com](https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Inter:wght@300;400;500&display=swap)" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --white: #fafaf8;
+      --warm-grey: #f2f0ed;
+      --mid-grey: #d8d4cf;
+      --text-dark: #1a1a18;
+      --text-mid: #5a5752;
+      --text-light: #9a958f;
+      --accent: #3d3a36;
+      --radius: 12px;
+      --max: 720px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--white);
+      color: var(--text-dark);
+      font-size: 17px;
+      line-height: 1.75;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 24px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(250, 250, 248, 0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 15px;
+      letter-spacing: 0.04em;
+      color: var(--text-dark);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-mid);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text-dark); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 140px 24px 100px;
+      background: linear-gradient(160deg, #fafaf8 0%, #f5f2ee 60%, #edeae5 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(180,170,158,0.12) 0%, transparent 70%);
+      top: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 32px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(40px, 6vw, 72px);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--text-dark);
+      max-width: 760px;
+      margin-bottom: 28px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--text-mid);
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--text-mid);
+      max-width: 540px;
+      margin-bottom: 52px;
+      line-height: 1.8;
+    }
+
+    .hero-buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: var(--text-dark);
+      color: var(--white);
+      border: none;
+      padding: 16px 36px;
+      border-radius: 100px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .btn-primary:hover { opacity: 0.82; transform: translateY(-1px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text-mid);
+      border: 1px solid var(--mid-grey);
+      padding: 16px 36px;
+      border-radius: 100px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .btn-secondary:hover { border-color: var(--text-mid); color: var(--text-dark); }
+
+    /* DIVIDER */
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: var(--mid-grey);
+      margin: 0 auto;
+    }
+
+    /* ABOUT */
+    .about {
+      padding: 120px 24px;
+      max-width: var(--max);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .about h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 400;
+      line-height: 1.3;
+      margin-bottom: 28px;
+      color: var(--text-dark);
+    }
+
+    .about p {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--text-mid);
+      max-width: 560px;
+      margin: 0 auto 20px;
+      line-height: 1.85;
+    }
+
+    .about .pull-quote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 22px;
+      color: var(--text-dark);
+      max-width: 480px;
+      margin: 40px auto;
+      line-height: 1.55;
+    }
+
+    /* FORM SECTION */
+    .form-section {
+      background: var(--warm-grey);
+      padding: 120px 24px;
+    }
+
+    .form-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+    }
+
+    .form-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      display: block;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .form-inner h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 400;
+      line-height: 1.25;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+
+    .form-intro {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--text-mid);
+      text-align: center;
+      margin-bottom: 56px;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .form-card {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 56px 56px;
+      box-shadow: 0 2px 40px rgba(0,0,0,0.04);
+    }
+
+    .field {
+      margin-bottom: 40px;
+    }
+
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-mid);
+      letter-spacing: 0.04em;
+      margin-bottom: 12px;
+    }
+
+    .field textarea,
+    .field input[type="text"],
+    .field input[type="email"],
+    .field select {
+      width: 100%;
+      background: var(--warm-grey);
+      border: 1px solid transparent;
+      border-radius: var(--radius);
+      padding: 18px 20px;
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--text-dark);
+      line-height: 1.75;
+      transition: border-color 0.2s, background 0.2s;
+      outline: none;
+      resize: none;
+      -webkit-appearance: none;
+    }
+
+    .field textarea:focus,
+    .field input:focus,
+    .field select:focus {
+      border-color: var(--mid-grey);
+      background: #fff;
+    }
+
+    .field textarea {
+      min-height: 220px;
+    }
+
+    .field select {
+      cursor: pointer;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .radio-group,
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .radio-group label,
+    .checkbox-group label {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-mid);
+      cursor: pointer;
+      letter-spacing: 0;
+      margin-bottom: 0;
+    }
+
+    .radio-group input[type="radio"],
+    .checkbox-group input[type="checkbox"] {
+      margin-top: 3px;
+      accent-color: var(--accent);
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+    }
+
+    .permissions {
+      border-top: 1px solid var(--warm-grey);
+      padding-top: 32px;
+      margin-top: 8px;
+    }
+
+    .permissions .field label {
+      font-size: 13px;
+      color: var(--text-light);
+      letter-spacing: 0;
+    }
+
+    .submit-area {
+      text-align: center;
+      margin-top: 48px;
+    }
+
+    .submit-area p {
+      font-size: 13px;
+      color: var(--text-light);
+      margin-top: 16px;
+    }
+
+    /* CLOSING */
+    .closing {
+      padding: 120px 24px;
+      max-width: var(--max);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .closing h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 3.5vw, 42px);
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--text-dark);
+      margin-bottom: 28px;
+    }
+
+    .closing p {
+      font-size: 17px;
+      font-weight: 300;
+      color: var(--text-mid);
+      max-width: 540px;
+      margin: 0 auto 20px;
+      line-height: 1.85;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--warm-grey);
+      padding: 40px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 14px;
+      color: var(--text-dark);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-size: 13px;
+      color: var(--text-light);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--text-dark); }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--text-light);
+      width: 100%;
+      text-align: center;
+      margin-top: 8px;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-label,
+    .hero h1,
+    .hero-sub,
+    .hero-buttons {
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .hero h1       { animation-delay: 0.1s; }
+    .hero-sub      { animation-delay: 0.2s; }
+    .hero-buttons  { animation-delay: 0.3s; }
+
+    /* RESPONSIVE */
+    @media (max-width: 640px) {
+      nav { padding: 20px 24px; }
+      .nav-links { display: none; }
+      .form-card { padding: 36px 24px; }
+      .field-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="#">The Security Edit</a>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#share">Share</a></li>
+      <li><a href="mailto:hello@thesecurityedit.space">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-label">The Unease Archive · The Security Edit</p>
+    <h1>Tell me about a time<br>you felt <em>unease.</em></h1>
+    <p class="hero-sub">
+      Every day, people experience moments where something simply doesn't feel right.
+      Sometimes nothing happens. Sometimes everything changes.
+    </p>
+    <div class="hero-buttons">
+      <a href="#share" class="btn-primary">Share Your Moment</a>
+      <a href="#about" class="btn-secondary">Learn More</a>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="divider" style="margin-bottom: 56px;"></div>
+    <h2>A living archive of<br>human experience.</h2>
+    <p>
+      The Unease Archive is an evolving collection of anonymous lived
+      experiences, exploring one simple but important question:
+    </p>
+    <p class="pull-quote">
+      "How does unease influence the way we participate in society?"
+    </p>
+    <p>
+      These stories may inform future articles, podcasts, books, research,
+      presentations, and technologies — all focused on creating a safer,
+      more participatory world.
+    </p>
+    <div class="divider" style="margin-top: 56px;"></div>
+  </section>
+
+  <!-- FORM -->
+  <section class="form-section" id="share">
+    <div class="form-inner">
+      <span class="form-label">Your Experience</span>
+      <h2>Every moment matters.</h2>
+      <p class="form-intro">
+        Take as long as you need. Write as much or as little as feels right.
+        This is your space.
+      </p>
+
+      <div class="form-card">
+        <form action="#" method="POST">
+
+          <!-- Main story -->
+          <div class="field">
+            <label>Tell me about a time you felt unease.</label>
+            <textarea
+              name="story"
+              placeholder="What happened? What made you feel uneasy? What were you thinking? How did it influence your decisions?"
+            ></textarea>
+          </div>
+
+          <!-- Age + Country -->
+          <div class="field field-row">
+            <div>
+              <label>Approximately how old are you?</label>
+              <select name="age">
+                <option value="" disabled selected>Select a range</option>
+                <option>Under 18</option>
+                <option>18 – 24</option>
+                <option>25 – 34</option>
+                <option>35 – 44</option>
+                <option>45 – 54</option>
+                <option>55 – 64</option>
+                <option>65 or older</option>
+                <option>Prefer not to say</option>
+              </select>
+            </div>
+            <div>
+              <label>Country</label>
+              <input type="text" name="country" placeholder="e.g. New Zealand" />
+            </div>
+          </div>
+
+          <!-- Location type -->
+          <div class="field">
+            <label>Where did this happen?</label>
+            <div class="radio-group">
+              <label><input type="radio" name="location" value="Home" /> Home</label>
+              <label><input type="radio" name="location" value="Workplace" /> Workplace</label>
+              <label><input type="radio" name="location" value="Public transport" /> Public transport</label>
+              <label><input type="radio" name="location" value="Street" /> Street</label>
+              <label><input type="radio" name="location" value="Online" /> Online</label>
+              <label><input type="radio" name="location" value="School / University" /> School / University</label>
+              <label><input type="radio" name="location" value="Healthcare" /> Healthcare</label>
+              <label><input type="radio" name="location" value="Retail" /> Retail</label>
+              <label><input type="radio" name="location" value="Other" /> Other</label>
+            </div>
+          </div>
+
+          <!-- Behaviour change -->
+          <div class="field">
+            <label>Did you change your behaviour afterwards?</label>
+            <div class="radio-group">
+              <label><input type="radio" name="behaviour" value="Yes" /> Yes</label>
+              <label><input type="radio" name="behaviour" value="No" /> No</label>
+              <label><input type="radio" name="behaviour" value="Unsure" /> Unsure</label>
+            </div>
+          </div>
+
+          <!-- Contact + Email -->
+          <div class="field">
+            <label>Would you be happy for us to contact you for a future conversation?</label>
+            <div class="radio-group">
+              <label><input type="radio" name="contact" value="Yes" /> Yes</label>
+              <label><input type="radio" name="contact" value="No" /> No</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Email address (optional)</label>
+            <input type="email" name="email" placeholder="Only if you'd like us to reach out" />
+          </div>
+
+          <!-- Permissions -->
+          <div class="permissions">
+            <div class="field">
+              <div class="checkbox-group">
+                <label>
+                  <input type="checkbox" name="permission_use" />
+                  You may anonymously include my experience in future articles, podcasts, presentations or publications.
+                </label>
+                <label>
+                  <input type="checkbox" name="permission_name" />
+                  I understand my story will never include my name without my explicit permission.
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <div class="submit-area">
+            <button type="submit" class="btn-primary">Add My Moment to the Archive</button>
+            <p>Anonymous by default. Your story is safe here.</p>
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <section class="closing">
+    <div class="divider" style="margin-bottom: 56px;"></div>
+    <h2>Every experience matters.</h2>
+    <p>
+      Many of the decisions we make each day happen quietly. We take another
+      route. Leave earlier. Decide not to go. Wait until tomorrow.
+    </p>
+    <p>
+      These moments are rarely measured, yet they shape our lives and our
+      communities.
+    </p>
+    <p>
+      By sharing your experience, you're helping build a deeper understanding
+      of human safety, participation, and the world we want to create together.
+    </p>
+    <div style="margin-top: 48px;">
+      <a href="#share" class="btn-primary">Share Your Moment</a>
+    </div>
+    <div class="divider" style="margin-top: 56px;"></div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a class="footer-logo" href="[thesecurityedit.space](https://www.thesecurityedit.space)">The Security Edit</a>
+    <ul class="footer-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#">Privacy</a></li>
+      <li><a href="mailto:hello@thesecurityedit.space">Contact</a></li>
+      <li><a href="[thesecurityedit.space](https://www.thesecurityedit.space)">The Security Edit</a></li>
+    </ul>
+    <p class="footer-copy">© 2026 The Security Edit · The Unease Archive</p>
+  </footer>
+
+</body>
+</html>
